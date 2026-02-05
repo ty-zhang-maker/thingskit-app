@@ -10,14 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Flutter (强制最新版)
+      - name: Setup Flutter (强制 3.27.4)
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.27.4'
           channel: 'stable'
-          cache: true
+          cache: false
 
-      - name: 强制清除所有缓存
+      - name: 彻底清理所有缓存
         run: |
           flutter clean
           rm -rf ~/.pub-cache
