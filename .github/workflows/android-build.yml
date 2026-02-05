@@ -10,17 +10,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Flutter (强制最新版 3.27.4)
+      - name: Setup Flutter (强制最新版)
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.27.4'
           channel: 'stable'
           cache: true
 
-      - name: Clean & Get dependencies
+      - name: 强制清除所有缓存
         run: |
           flutter clean
-          flutter pub get --verbose
+          rm -rf ~/.pub-cache
+          flutter pub cache repair
+
+      - name: Install dependencies
+        run: flutter pub get --verbose
 
       - name: Build APK (arm64)
         run: flutter build apk --release --split-per-abi --target-platform=android-arm64 --dart-define-from-file configs.json
